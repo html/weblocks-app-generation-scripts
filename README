@@ -1,0 +1,21 @@
+Each of functions provided does following 
+# Creates git repository for app in current directory
+# Adds quicklisp install scripts from git://github.com/html/quicklisp-app-skeleton.git
+# Creates app from template 
+# Adds script/server and related .sbclrc file for running server
+# Adds all generated files and cloned git submodules to repository
+
+create-weblocks-app-repository creates normal weblocks application
+create-weblocks-bootstrap-app-repository creates weblocks application based on twitter bootstrap template from here git://github.com/html/weblocks-twitter-bootstrap-application.git
+
+Scripts tested only for dashed application names like "simple-app" or "another-simple-application".
+
+Usage is 
+
+create-weblocks-app-repository test-app
+
+or 
+
+create-weblocks-bootstrap-app-repository test-app
+
+After generating application all you need to start it is executing script/server which loads weblocks with quicklisp and starts server.
