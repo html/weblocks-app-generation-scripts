@@ -1,4 +1,4 @@
-# version 0.0.1
+# version 0.0.2
 function create-weblocks-app-repository(){
     NAME="$1"
     mkdir "$NAME";
@@ -69,9 +69,12 @@ END_TEXT
 (defun quit () (sb-ext:quit))
 END_TEXT
     echo "$SBCLRC" | sed -e s/\$NAME/$NAME/g > "$NAME.sbclrc";
+    git add "$NAME.sbclrc"
+    git add .quicklisp-version
+    git add script
 }
 
-# version 0.0.1
+# version 0.0.2
 function create-weblocks-bootstrap-app-repository(){
     NAME="$1"
     mkdir "$NAME";
@@ -145,9 +148,13 @@ END_TEXT
 (defun quit () (sb-ext:quit))
 END_TEXT
     echo "$SBCLRC" | sed -e s/\$NAME/$NAME/g > "$NAME.sbclrc";
+    git add "$NAME.sbclrc"
 
     git submodule add git://github.com/html/weblocks-jquery.git lib/weblocks-jquery
     git submodule add git://github.com/html/jquery-seq.git lib/jquery-seq
     (cd pub/scripts && ln -s ../../lib/weblocks-jquery/*.js . && ln -s ../../lib/jquery-seq/*.js .)
+    git add pub/scripts/*.js
+    git add .quicklisp-version
+    git add script
 }
 
