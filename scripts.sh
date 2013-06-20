@@ -74,7 +74,7 @@ END_TEXT
     git add script
 }
 
-# version 0.0.2
+# version 0.0.3
 function create-weblocks-bootstrap-app-repository(){
     NAME="$1"
     mkdir "$NAME";
@@ -83,7 +83,10 @@ function create-weblocks-bootstrap-app-repository(){
     git submodule add git://github.com/html/quicklisp-app-skeleton.git .quicklisp-install
     cp .quicklisp-install/.quicklisp-version .
     mkdir lib
+    git submodule add git://github.com/nallen05/pretty-function.git lib/pretty-function
     git submodule add git://github.com/html/weblocks-twitter-bootstrap-application.git lib/weblocks-twitter-bootstrap-application
+    git submodule add git://github.com/html/weblocks-stores.git lib/weblocks-stores
+    git submodule add git://github.com/skypher/weblocks.git lib/weblocks
     echo  "(progn (push (make-pathname :directory '(:relative \"lib\")) ql:*local-project-directories*) (ql:quickload :weblocks-twitter-bootstrap-application) (funcall (intern \"MAKE-APPLICATION\" \"WEBLOCKS-TWITTER-BOOTSTRAP-APPLICATION\") '$NAME \".\"))" | sbcl --load ".quicklisp-install/require-quicklisp"
     mv $NAME/* .
     rm -rf "$NAME"
