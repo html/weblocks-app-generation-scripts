@@ -1,10 +1,10 @@
-# version 0.0.3
+# version 0.0.4
 function create-weblocks-app-repository(){
     NAME="$1"
     mkdir "$NAME";
     cd "$NAME";
     git init
-    git submodule add git://github.com/html/quicklisp-app-skeleton.git .quicklisp-install
+    git submodule add git://github.com/html/require-quicklisp.git .quicklisp-install
     cp .quicklisp-install/.quicklisp-version .
     echo  "(progn (ql:quickload :weblocks) (funcall (intern \"MAKE-APP\" \"WOP\") '$NAME \".\"))" | sbcl --load ".quicklisp-install/require-quicklisp"
     mv $NAME/* .
@@ -75,19 +75,22 @@ END_TEXT
     git add script
 }
 
-# version 0.0.4
+# version 0.1.0
 function create-weblocks-bootstrap-app-repository(){
     NAME="$1"
     mkdir "$NAME";
     cd "$NAME";
     git init
-    git submodule add git://github.com/html/quicklisp-app-skeleton.git .quicklisp-install
+    git submodule add git://github.com/html/require-quicklisp.git .quicklisp-install
     cp .quicklisp-install/.quicklisp-version .
     mkdir lib
     git submodule add git://github.com/nallen05/pretty-function.git lib/pretty-function
     git submodule add git://github.com/html/weblocks-twitter-bootstrap-application.git lib/weblocks-twitter-bootstrap-application
     git submodule add git://github.com/html/weblocks-stores.git lib/weblocks-stores
     git submodule add git://github.com/skypher/weblocks.git lib/weblocks
+    git submodule add https://github.com/html/weblocks-utils.git lib/weblocks-utils
+    wget http://common-lisp.net/project/asdf/asdf.lisp
+    git add asdf.lisp
     echo  "(progn (push (make-pathname :directory '(:relative \"lib\")) ql:*local-project-directories*) (ql:quickload :weblocks-twitter-bootstrap-application) (funcall (intern \"MAKE-APPLICATION\" \"WEBLOCKS-TWITTER-BOOTSTRAP-APPLICATION\") '$NAME \".\"))" | sbcl --load ".quicklisp-install/require-quicklisp"
     mv $NAME/* .
     rm -rf "$NAME"
@@ -105,8 +108,6 @@ END_TEXT
 
     mkdir script;
     echo "$SERVER" | sed -e s/\$NAME/$NAME/g  > script/server;
-    wget http://common-lisp.net/project/asdf/asdf.lisp
-    git add asdf.lisp
     chmod +x script/server
     define SBCLRC << 'END_TEXT'
 (load "asdf.lisp")
@@ -157,10 +158,6 @@ END_TEXT
     echo "$SBCLRC" | sed -e s/\$NAME/$NAME/g > "$NAME.sbclrc";
     git add "$NAME.sbclrc"
 
-    git submodule add git://github.com/html/weblocks-jquery.git lib/weblocks-jquery
-    git submodule add git://github.com/html/jquery-seq.git lib/jquery-seq
-    (cd pub/scripts && ln -s ../../lib/weblocks-jquery/*.js . && ln -s ../../lib/jquery-seq/*.js .)
-    git add pub/scripts/*.js
     git add .quicklisp-version
     git add script
 }
