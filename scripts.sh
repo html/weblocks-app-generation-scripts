@@ -1,4 +1,4 @@
-# version 0.0.2
+# version 0.0.3
 function create-weblocks-app-repository(){
     NAME="$1"
     mkdir "$NAME";
@@ -31,6 +31,7 @@ END_TEXT
 (require :sb-aclrepl)
 (setf sb-impl::*default-external-format* :utf-8)
 (push (make-pathname :directory '(:relative "lib")) ql:*local-project-directories*)
+(push (make-pathname :directory '(:relative ".")) ql:*local-project-directories*)
 
 (defvar *project-root* (pathname (nth 1 *posix-argv*)))
 (defvar *port* (parse-integer (nth 2 *posix-argv*)))
@@ -74,7 +75,7 @@ END_TEXT
     git add script
 }
 
-# version 0.0.3
+# version 0.0.4
 function create-weblocks-bootstrap-app-repository(){
     NAME="$1"
     mkdir "$NAME";
@@ -104,14 +105,17 @@ END_TEXT
 
     mkdir script;
     echo "$SERVER" | sed -e s/\$NAME/$NAME/g  > script/server;
+    wget http://common-lisp.net/project/asdf/asdf.lisp
+    git add asdf.lisp
     chmod +x script/server
     define SBCLRC << 'END_TEXT'
+(load "asdf.lisp")
 (load ".quicklisp-install/require-quicklisp.lisp")
-(require 'asdf)
 (require 'sb-posix)
 (require :sb-aclrepl)
 (setf sb-impl::*default-external-format* :utf-8)
 (push (make-pathname :directory '(:relative "lib")) ql:*local-project-directories*)
+(push (make-pathname :directory '(:relative ".")) ql:*local-project-directories*)
 
 (defvar *project-root* (pathname (nth 1 *posix-argv*)))
 (defvar *port* (parse-integer (nth 2 *posix-argv*)))
