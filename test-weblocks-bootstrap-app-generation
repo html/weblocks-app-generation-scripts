@@ -1,0 +1,5 @@
+# Source this file to generate weblocks bootstrap test app. Remove bootstrap-test-app directory after finishing
+source scripts.sh
+create-weblocks-bootstrap-app-repository bootstrap-test-app
+cd bootstrap-test-app 
+script/server

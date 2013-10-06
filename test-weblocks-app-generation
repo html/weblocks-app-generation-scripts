@@ -1,0 +1,5 @@
+# Source this file to generate weblocks test app. Remove test-app directory after finishing
+source scripts.sh
+create-weblocks-app-repository test-app
+cd test-app 
+script/server
