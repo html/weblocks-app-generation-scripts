@@ -1,4 +1,4 @@
-# version 0.0.4
+# version 0.0.5
 function create-weblocks-app-repository(){
     NAME="$1"
     mkdir "$NAME";
@@ -6,6 +6,8 @@ function create-weblocks-app-repository(){
     git init
     git submodule add git://github.com/html/require-quicklisp.git .quicklisp-install
     cp .quicklisp-install/.quicklisp-version .
+    wget http://common-lisp.net/project/asdf/asdf.lisp
+    git add asdf.lisp
     echo  "(progn (ql:quickload :weblocks) (funcall (intern \"MAKE-APP\" \"WOP\") '$NAME \".\"))" | sbcl --load ".quicklisp-install/require-quicklisp"
     mv $NAME/* .
     rm -rf "$NAME"
@@ -25,8 +27,8 @@ END_TEXT
     echo "$SERVER" | sed -e s/\$NAME/$NAME/g  > script/server;
     chmod +x script/server
     define SBCLRC << 'END_TEXT'
+(load "asdf.lisp")
 (load ".quicklisp-install/require-quicklisp.lisp")
-(require 'asdf)
 (require 'sb-posix)
 (require :sb-aclrepl)
 (setf sb-impl::*default-external-format* :utf-8)
@@ -89,6 +91,7 @@ function create-weblocks-bootstrap-app-repository(){
     git submodule add git://github.com/html/weblocks-stores.git lib/weblocks-stores
     git submodule add git://github.com/skypher/weblocks.git lib/weblocks
     git submodule add https://github.com/html/weblocks-utils.git lib/weblocks-utils
+    git submodule add https://github.com/html/cl-tidy.git lib/cl-tidy
     wget http://common-lisp.net/project/asdf/asdf.lisp
     git add asdf.lisp
     echo  "(progn (push (make-pathname :directory '(:relative \"lib\")) ql:*local-project-directories*) (ql:quickload :weblocks-twitter-bootstrap-application) (funcall (intern \"MAKE-APPLICATION\" \"WEBLOCKS-TWITTER-BOOTSTRAP-APPLICATION\") '$NAME \".\"))" | sbcl --load ".quicklisp-install/require-quicklisp"
@@ -157,7 +160,6 @@ END_TEXT
 END_TEXT
     echo "$SBCLRC" | sed -e s/\$NAME/$NAME/g > "$NAME.sbclrc";
     git add "$NAME.sbclrc"
-
     git add .quicklisp-version
     git add script
 }
