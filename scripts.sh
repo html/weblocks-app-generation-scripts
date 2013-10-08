@@ -1,4 +1,4 @@
-# version 0.0.5
+# version 0.0.6
 function create-weblocks-app-repository(){
     NAME="$1"
     mkdir "$NAME";
@@ -69,7 +69,7 @@ END_TEXT
 (format t "Use (quit) to exit REPL")
 (in-package $NAME)
 
-(defun quit () (sb-ext:quit))
+(defun quit () (sb-ext:exit))
 END_TEXT
     echo "$SBCLRC" | sed -e s/\$NAME/$NAME/g > "$NAME.sbclrc";
     git add "$NAME.sbclrc"
@@ -77,7 +77,7 @@ END_TEXT
     git add script
 }
 
-# version 0.1.0
+# version 0.1.1
 function create-weblocks-bootstrap-app-repository(){
     NAME="$1"
     mkdir "$NAME";
@@ -156,7 +156,7 @@ END_TEXT
 (format t "Use (quit) to exit REPL")
 (in-package $NAME)
 
-(defun quit () (sb-ext:quit))
+(defun quit () (sb-ext:exit))
 END_TEXT
     echo "$SBCLRC" | sed -e s/\$NAME/$NAME/g > "$NAME.sbclrc";
     git add "$NAME.sbclrc"
