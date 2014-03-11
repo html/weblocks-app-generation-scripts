@@ -164,3 +164,4 @@ END_TEXT
     git add script
 }
 
+source install-weblocks-cms.sh
