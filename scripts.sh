@@ -164,4 +164,4 @@ END_TEXT
     git add script
 }
 
-source install-weblocks-cms.sh
+source "`dirname $BASH_SOURCE`/install-weblocks-cms.sh"
