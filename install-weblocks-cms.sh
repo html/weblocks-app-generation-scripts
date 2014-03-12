@@ -1,3 +1,4 @@
+# version 0.0.1
 function add-quicklisp-submodule(){
   REPO_NAME="`echo "$1" | grep -o "\([^/]\+\?\)\.git" | sed -e s/.git//`"
   CMD="git submodule add $1 ./lib/$REPO_NAME"
