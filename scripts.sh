@@ -1,4 +1,4 @@
-# version 0.0.6
+# version 0.0.7
 function create-weblocks-app-repository(){
     NAME="$1"
     mkdir "$NAME";
@@ -75,6 +75,7 @@ END_TEXT
     git add "$NAME.sbclrc"
     git add .quicklisp-version
     git add script
+    git rm -f lib/system-index.txt
 }
 
 # version 0.1.1
@@ -162,6 +163,7 @@ END_TEXT
     git add "$NAME.sbclrc"
     git add .quicklisp-version
     git add script
+    git rm -f lib/system-index.txt
 }
 
 source "`dirname $BASH_SOURCE`/install-weblocks-cms.sh"
