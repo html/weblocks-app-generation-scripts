@@ -78,7 +78,7 @@ END_TEXT
     git rm -f lib/system-index.txt
 }
 
-# version 0.1.1
+# version 0.1.2
 function create-weblocks-bootstrap-app-repository(){
     NAME="$1"
     mkdir "$NAME";
@@ -91,6 +91,7 @@ function create-weblocks-bootstrap-app-repository(){
     git submodule add git://github.com/html/weblocks-twitter-bootstrap-application.git lib/weblocks-twitter-bootstrap-application
     git submodule add git://github.com/html/weblocks-stores.git lib/weblocks-stores
     git submodule add git://github.com/skypher/weblocks.git lib/weblocks
+    git submodule add https://github.com/html/weblocks-jquery-js.git lib/weblocks-jquery-js
     git submodule add https://github.com/html/weblocks-utils.git lib/weblocks-utils
     git submodule add https://github.com/html/cl-tidy.git lib/cl-tidy
     wget http://common-lisp.net/project/asdf/asdf.lisp
